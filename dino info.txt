@@ -1,0 +1,8 @@
+accel : 0.001
+fps : 60
+initial speed : 6
+max speed : 12
+speed drop coef : 3
+mobile speed coef : 1.2
+
+this.current_speed += this.acceleration 
