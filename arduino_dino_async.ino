@@ -78,7 +78,7 @@ void loop()
   //=============  Block responsible decreasing the interval before we jump  ==============
   if (accelTimer != 0 && millis() - accelTimer > 1200)
   {
-    // Every 2 seconds, we decrease the jump delay by 20 milliseconds
+    // Every 1.2 seconds, we decrease the jump delay by 12 milliseconds
     accelTimer = millis();
     timeBeforeJump -= 12;
   }
@@ -113,9 +113,8 @@ void loop()
   }
   else
   {
-    if (detectObstacle(cactusRawValue, 80) || detectObstacle(birdRawValue, 88))
+    if (detectObstacle(cactusRawValue, 80) || detectObstacle(birdRawValue, 88)) // The dark mode mean values were manually entered (could be improved)
     {
-      //Serial.println(String(cactusRawValue) + "\t" + String(cactusMinValue - 10) + "\t" + String(birdRawValue) + "\t" + String(birdMinValue - 10));
       addObstacleTimeToBuffer();
     }
   }
@@ -146,8 +145,8 @@ void async_jump(bool allowJump)
 
     if (jumpIndex == 1)
     {
+	  // Records the time of the first jump, it will serve as temporal origin	
       accelTimer = millis();
-      Serial.println("First Jump\t" + String(accelTimer));
     }
   }
 
@@ -186,9 +185,7 @@ bool checkIfTimeToJump()
     if (millis() - obstacleBuffer[jumpIndex % 4] > timeBeforeJump)
     {
       jumpIndex++;
-      //Serial.println(String(obstacleBuffer[0]) + "\t" + String(obstacleBuffer[1]) + "\t" + String(obstacleBuffer[2]) + "\t"
-      //+ String(obstacleBuffer[3]) + "\t" + String(obstacleIndex) + "\t" +String(jumpIndex));
-      Serial.println(String(millis()) + "\t" + String(obstacleIndex) + "\t" + String(jumpIndex));
+      //Serial.println(String(millis()) + "\t" + String(obstacleIndex) + "\t" + String(jumpIndex));
       return true;
     }
   }
